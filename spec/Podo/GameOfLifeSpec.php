@@ -20,16 +20,10 @@ class GameOfLifeSpec extends ObjectBehavior
         $this->grid()->shouldHaveKey($this->height);
     }
 
-    function it_should_increment_the_generation()
-    {
-        $this->generation()->shouldReturn(1);
-    }
-
     function it_should_age_one_generation()
     {
-        //$this->age(1);
-        //$this->generation()->shouldReturn(2);
-        $this->generation()->shouldReturn(1);
+        $this->age(1);
+        $this->generation()->shouldReturn(2);
     }
 
     function it_should_guard_coordinates()
