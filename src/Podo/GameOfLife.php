@@ -73,26 +73,6 @@ class GameOfLife
     }
 
     /**
-     * Get grid
-     *
-     * @return array
-     */
-    function grid()
-    {
-        return $this->grid;
-    }
-
-    /**
-     * Get current generation
-     *
-     * @return int
-     */
-    function generation()
-    {
-        return $this->generation;
-    }
-
-    /**
      * Get a Cell
      *
      * @param int $x
@@ -107,7 +87,7 @@ class GameOfLife
     }
 
     /**
-     * Set the value of a Cell
+     * Set the value of a Cell (in the current generation)
      *
      * @param int $x
      * @param int $y
@@ -122,31 +102,18 @@ class GameOfLife
     }
 
     /**
-     * Create a cell in the next generation
+     * Dispatch cell in the next generation
      *
      * @param int $x
      * @param int $y
+     * @param bool $live
      *
      * @return void
      */
-    function createCell($x, $y)
+    function dispatchCell($x, $y, $live)
     {
         $this->guardCoordinates($x, $y);
-        $this->nextGeneration[$y][$x] = true;
-    }
-
-    /**
-     * Kill a cell in the next generation
-     *
-     * @param int $x
-     * @param int $y
-     *
-     * @return void
-     */
-    function killCell($x, $y)
-    {
-        $this->guardCoordinates($x, $y);
-        $this->nextGeneration[$y][$x] = false;
+        $this->nextGeneration[$y][$x] = $live;
     }
 
     /**
@@ -176,7 +143,7 @@ class GameOfLife
         $x2 = $x0+2;
         $y2 = $y0+2;
 
-        $grid = $this->grid();
+        $grid = $this->grid;
 
         // don't go off the edge of the grid
         for ($i = max($y0, 1); $i <= min($y2, $this->depth); $i++) {
@@ -214,12 +181,7 @@ class GameOfLife
                 for ($x = 1; $x <= $this->width; $x++) {
                     // we should throw if this is null, maybe
                     $alive = $this->evaluate($x, $y);
-
-                    if ($alive) {
-                        $this->createCell($x, $y);
-                    } else {
-                        $this->killCell($x, $y);
-                    }
+                    $this->dispatchCell($x, $y, $alive);
                 }
             }
 
@@ -227,7 +189,7 @@ class GameOfLife
             $this->generation += 1;
         }
 
-        return $this->generation();
+        return $this->generation;
     }
 
     /**
@@ -242,34 +204,30 @@ class GameOfLife
      */
     function evaluate($x, $y)
     {
-        $result = null;
+        $live = null;
 
         $neighborhood = $this->getNeighborHood($x, $y);
         $alive = $this->getCell($x, $y);
 
         if ($this->cellIsLonely($alive, $neighborhood)) {
-            $result = false;
+            $live = false;
         }
 
         elseif($this->cellHasEnoughNeighbors($alive, $neighborhood)) {
-            $result = true;
+            $live = true;
         }
 
         elseif ($this->cellIsOverCrowded($alive, $neighborhood)) {
-            $result = false;
+            $live = false;
         }
 
         elseif ($this->cellHasThreeNeighbors($alive, $neighborhood)) {
-            $result = true;
+            $live = true;
         }
 
-        if ($result) {
-            $this->createCell($x, $y);
-        } else {
-            $this->killCell($x, $y);
-        }
+        $this->dispatchCell($x, $y, $live);
 
-        return $result;
+        return $live;
     }
 
     /**
@@ -281,7 +239,7 @@ class GameOfLife
      */
     function render()
     {
-        $grid = $this->grid();
+        $grid = $this->grid;
         $output = PHP_EOL;
 
         for ($y = 1; $y <= count($grid); $y++) {
@@ -370,7 +328,7 @@ class GameOfLife
      */
     private function guardCoordinates($x, $y)
     {
-        $grid = $this->grid();
+        $grid = $this->grid;
         $depth = count($grid);
         $width = count($grid[1]);
 

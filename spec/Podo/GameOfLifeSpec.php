@@ -18,14 +18,14 @@ class GameOfLifeSpec extends ObjectBehavior
 
     function it_should_have_a_grid_set_to_width_and_height()
     {
-        $this->grid()->shouldHaveCount($this->height);
-        $this->grid()->shouldHaveKey($this->height);
+        $this->grid->shouldHaveCount($this->height);
+        $this->grid->shouldHaveKey($this->height);
     }
 
     function it_should_age_one_generation()
     {
         $this->age(1);
-        $this->generation()->shouldReturn(2);
+        $this->generation->shouldReturn(2);
     }
 
     function it_should_guard_coordinates()
@@ -35,14 +35,16 @@ class GameOfLifeSpec extends ObjectBehavior
 
     function it_should_create_a_cell()
     {
-        $this->createCell(1, 1);
-        $this->nextGeneration[1][1]->shouldReturn(true);
+        $live = true;
+        $this->dispatchCell(1, 1, $live);
+        $this->nextGeneration[1][1]->shouldReturn($live);
     }
 
     function it_should_kill_a_cell()
     {
-        $this->killCell(1, 1);
-        $this->nextGeneration[1][1]->shouldReturn(false);
+        $live = false;
+        $this->dispatchCell(1, 1, $live);
+        $this->nextGeneration[1][1]->shouldReturn($live);
     }
 
     function it_should_get_the_neighborhood_for_a_cell()
