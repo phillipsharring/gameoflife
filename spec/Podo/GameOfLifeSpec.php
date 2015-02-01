@@ -30,7 +30,10 @@ class GameOfLifeSpec extends ObjectBehavior
 
     function it_should_guard_coordinates()
     {
-        $this->shouldThrow('\InvalidArgumentException')->during('getCell', [$this->width + 1, $this->height + 1]);
+        $this->shouldThrow('\InvalidArgumentException')->during(
+            'getCell',
+            [$this->width + 1, $this->height + 1]
+        );
     }
 
     function it_should_create_a_cell()
@@ -62,7 +65,10 @@ class GameOfLifeSpec extends ObjectBehavior
         $count = $neighborhood['alive'] + $neighborhood['dead'];
 
         if ($count != $expectedCount) {
-            throw new FailedPredictionException("Neighborhood count: {$count} must be expected count: {$expectedCount}");
+            throw new FailedPredictionException(
+                "Neighborhood count: {$count} must be "
+                . "expected count: {$expectedCount}"
+            );
         }
     }
 

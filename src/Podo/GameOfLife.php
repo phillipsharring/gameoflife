@@ -124,7 +124,8 @@ class GameOfLife
      *
      * It doesn't matter where they are, just how many there are.
      *
-     * This assumes that cells off the edge of the grid are dead; not sure if that's right.
+     * This assumes that cells off the edge of the grid are dead;
+     * not sure if that's right.
      *
      * @param int $x
      * @param int $y
@@ -269,7 +270,8 @@ class GameOfLife
     /**
      * Cell is Lonely
      *
-     * "Any live cell with fewer than two live neighbours dies, as if caused by under-population."
+     * "Any live cell with fewer than two live neighbours dies,
+     *   as if caused by under-population."
      *
      * @param bool $alive
      * @param array $neighborhood
@@ -284,7 +286,8 @@ class GameOfLife
     /**
      * Cell has enough neighbors
      *
-     * "Any live cell with two or three live neighbours lives on to the next generation."
+     * "Any live cell with two or three live neighbours
+     *   lives on to the next generation."
      *
      * Is this function even necessary, since it doesn't really change the cell?
      *
@@ -295,13 +298,17 @@ class GameOfLife
      */
     private function cellHasEnoughNeighbors($alive, array $neighborhood)
     {
-        return ($alive && ($neighborhood['alive'] == 2 || $neighborhood['alive'] == 3));
+        return (
+            $alive
+            && ($neighborhood['alive'] == 2 || $neighborhood['alive'] == 3)
+        );
     }
 
     /**
      * Cell is Over Crowded
      *
-     * "Any live cell with more than three live neighbours dies, as if by overcrowding."
+     * "Any live cell with more than three live neighbours dies,
+     *   as if by overcrowding."
      *
      * @param bool $alive
      * @param array $neighborhood
@@ -316,7 +323,8 @@ class GameOfLife
     /**
      * Cell has Three Neighbors
      *
-     * "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction."
+     * "Any dead cell with exactly three live neighbours becomes a live cell,
+     *   as if by reproduction."
      *
      * @param bool $alive
      * @param array $neighborhood
