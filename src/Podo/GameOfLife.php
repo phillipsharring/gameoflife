@@ -51,7 +51,7 @@ class GameOfLife
      * @param int $width
      * @param int $depth
      */
-    public function __construct($width, $depth)
+    function __construct($width, $depth)
     {
         $this->width = $width;
         $this->depth = $depth;
@@ -63,7 +63,7 @@ class GameOfLife
      *
      * @return void
      */
-    public function initGrid()
+    function initGrid()
     {
         for ($y = 1; $y <= $this->depth; $y++) {
             for ($x = 1; $x <= $this->width; $x++) {
@@ -279,7 +279,7 @@ class GameOfLife
      *
      * @return string
      */
-    public function render()
+    function render()
     {
         $grid = $this->grid();
         $output = PHP_EOL;
