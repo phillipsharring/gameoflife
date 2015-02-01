@@ -176,20 +176,30 @@ class GameOfLife
     function age($generations)
     {
         for ($i = 0; $i < $generations; $i++) {
-
-            for ($y = 1; $y <= $this->depth; $y++) {
-                for ($x = 1; $x <= $this->width; $x++) {
-                    // we should throw if this is null, maybe
-                    $live = $this->evaluate($x, $y);
-                    $this->dispatchCell($x, $y, $live);
-                }
-            }
-
+            $this->evaluateGrid();
             $this->grid = $this->nextGeneration;
             $this->generation += 1;
         }
 
         return $this->generation;
+    }
+
+    /**
+     * Evaluate grid
+     *
+     * Evaluate the entire grid
+     *
+     * @return void
+     */
+    public function evaluateGrid()
+    {
+        for ($y = 1; $y <= $this->depth; $y++) {
+            for ($x = 1; $x <= $this->width; $x++) {
+                // we should throw if this is null, maybe
+                $live = $this->evaluate($x, $y);
+                $this->dispatchCell($x, $y, $live);
+            }
+        }
     }
 
     /**
@@ -202,7 +212,7 @@ class GameOfLife
      *
      * @return bool|null
      */
-    function evaluate($x, $y)
+    function evaluateCell($x, $y)
     {
         $live = null;
 
