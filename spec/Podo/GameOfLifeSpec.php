@@ -74,9 +74,49 @@ class GameOfLifeSpec extends ObjectBehavior
 
     function it_should_kill_a_lonely_cell()
     {
+        $x = $y = 2;
+        $this->setCell($x, $y, true);
+        $this->evaluateCell($x, $y)->shouldReturn(false);
+    }
+
+    function it_should_kill_a_lonely_cell_on_the_edge()
+    {
         $x = $y = 1;
         $this->setCell($x, $y, true);
-        $this->evaluate($x, $y)->shouldReturn(false);
+        $this->setCell(2, 1, true);
+        $this->evaluateCell($x, $y)->shouldReturn(false);
+    }
+
+    function it_should_sustain_a_cell_with_enough_neighbors()
+    {
+        $x = $y = 2;
+        $this->setCell($x, $y, true);
+        $this->setCell(1, 1, true);
+        $this->setCell(2, 1, true);
+        $this->evaluateCell($x, $y)->shouldReturn(true);
+        $this->setCell(3, 1, true);
+        $this->evaluateCell($x, $y)->shouldReturn(true);
+    }
+
+    function it_should_kill_an_over_crowded_cell()
+    {
+        $x = $y = 2;
+        $this->setCell($x, $y, true);
+        $this->setCell(1, 1, true);
+        $this->setCell(2, 1, true);
+        $this->setCell(3, 1, true);
+        $this->setCell(1, 2, true);
+        $this->evaluateCell($x, $y)->shouldReturn(false);
+    }
+
+    function it_should_create_a_cell_with_3_neighbors()
+    {
+        $x = $y = 2;
+        $this->setCell($x, $y, false);
+        $this->setCell(1, 1, true);
+        $this->setCell(2, 1, true);
+        $this->setCell(3, 1, true);
+        $this->evaluateCell($x, $y)->shouldReturn(true);
     }
 
     function it_should_still_life_a_block()
