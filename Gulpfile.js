@@ -5,7 +5,7 @@ var notify = require('gulp-notify');
 
 gulp.task('test', function() {
     gulp.src('spec/**/*.php')
-        .pipe(phpspec('', { 'verbose': 'v', notify: true }))
+        .pipe(phpspec('vendor/bin/phpspec run', { notify: true }))
         .on('error', notify.onError({
             title: "Failure",
             message: "One or more tests failed",
