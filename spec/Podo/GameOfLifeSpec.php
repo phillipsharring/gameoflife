@@ -58,7 +58,7 @@ class GameOfLifeSpec extends ObjectBehavior
         $count = $neighborhood['alive'] + $neighborhood['dead'];
 
         if ($count != $expectedCount) {
-            throw new FailedPredictionException("Neighborhood count must be {$expectedCount}");
+            throw new FailedPredictionException("Neighborhood count: {$count} must be expected count: {$expectedCount}");
         }
     }
 

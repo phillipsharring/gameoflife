@@ -188,11 +188,11 @@ class GameOfLife {
         $width = count($grid[1]);
 
         if ($x > $width) {
-            throw new InvalidArgumentException("X $x is beyond width $width");
+            throw new InvalidArgumentException("X: $x is beyond width: $width");
         }
 
         if ($y > $depth) {
-            throw new InvalidArgumentException("Y $y is beyond depth $depth");
+            throw new InvalidArgumentException("Y: $y is beyond depth: $depth");
         }
     }
 }
