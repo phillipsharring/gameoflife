@@ -180,8 +180,8 @@ class GameOfLife
             for ($y = 1; $y <= $this->depth; $y++) {
                 for ($x = 1; $x <= $this->width; $x++) {
                     // we should throw if this is null, maybe
-                    $alive = $this->evaluate($x, $y);
-                    $this->dispatchCell($x, $y, $alive);
+                    $live = $this->evaluate($x, $y);
+                    $this->dispatchCell($x, $y, $live);
                 }
             }
 
