@@ -1,4 +1,4 @@
 suites:
   acme_suite:
-    namespace: Acme
+    namespace: Podo
     psr4_prefix:
