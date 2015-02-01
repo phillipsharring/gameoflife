@@ -1,6 +1,6 @@
 # GameOfLife
 
-An implementation of Conway's Game of Life in OOP PHP.
+An implementation of [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in OOP PHP.
 
 With help from Laracast's [Code Katas](http://laracasts.com/series/code-katas-in-php) and [Gulp File](https://laracasts.com/lessons/how-to-trigger-tests-on-save).
 
