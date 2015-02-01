@@ -1,6 +1,6 @@
 # GameOfLife
 
-An implementation of Conway's Game of Life. With help from Laracast's (Code Katas)[http://laracasts.com/series/code-katas-in-php].
+An implementation of Conway's Game of Life. With help from Laracast's [Code Katas](http://laracasts.com/series/code-katas-in-php) and [Gulp File](https://laracasts.com/lessons/how-to-trigger-tests-on-save).
 
 ## Installation
 
@@ -18,8 +18,6 @@ $ vendor/bin/phpspec run
 ```
 
 ## Automating Tests
-
-With the help of Jeffrey Way's gulp file.
 
 ```bash
 $ gulp
