@@ -293,7 +293,7 @@ class GameOfLife
      */
     private function cellHasEnoughNeighbors($alive, array $neighborhood)
     {
-        return ($alive && $neighborhood['alive'] == 2 || $neighborhood['alive'] == 3);
+        return ($alive && ($neighborhood['alive'] == 2 || $neighborhood['alive'] == 3));
     }
 
     /**
