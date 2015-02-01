@@ -39,4 +39,4 @@ $ gulp --silent
 
 ## Feedback
 
-I did this as an exercise in OOP, phpspec, and programming in general. Feedback is invited. Send any to philsown at gmail. Thanks.
+I did this as an exercise in OOP, phpspec, and programming in general. Feedback is invited. Send any to philsown at gmail or create an issue. Feel free to fork. Thanks.
