@@ -8,18 +8,18 @@ use Prophecy\Exception\Prediction\FailedPredictionException;
 
 class GameOfLifeSpec extends ObjectBehavior
 {
-    public $width = 6;
-    public $height = 6;
+    public $testWidth = 6;
+    public $testDepth = 6;
 
     function let()
     {
-        $this->beConstructedWith($this->width, $this->height);
+        $this->beConstructedWith($this->testWidth, $this->testDepth);
     }
 
     function it_should_have_a_grid_set_to_width_and_height()
     {
-        $this->grid->shouldHaveCount($this->height);
-        $this->grid->shouldHaveKey($this->height);
+        $this->grid->shouldHaveCount($this->testDepth);
+        $this->grid->shouldHaveKey($this->testDepth);
     }
 
     function it_should_age_one_generation()
@@ -32,7 +32,7 @@ class GameOfLifeSpec extends ObjectBehavior
     {
         $this->shouldThrow('\InvalidArgumentException')->during(
             'getCell',
-            [$this->width + 1, $this->height + 1]
+            [$this->testWidth + 1, $this->testDepth + 1]
         );
     }
 
@@ -306,15 +306,15 @@ class GameOfLifeSpec extends ObjectBehavior
 
 //        echo $this->render()->getWrappedObject();
 
-        $this->getCell(2, 2)->shouldEqual(true);
-        $this->getCell(3, 2)->shouldEqual(true);
-        $this->getCell(2, 3)->shouldEqual(true);
-        $this->getCell(5, 4)->shouldEqual(true);
-        $this->getCell(4, 5)->shouldEqual(true);
-        $this->getCell(5, 5)->shouldEqual(true);
+        // $this->getCell(2, 2)->shouldEqual(true);
+        // $this->getCell(3, 2)->shouldEqual(true);
+        // $this->getCell(2, 3)->shouldEqual(true);
+        // $this->getCell(5, 4)->shouldEqual(true);
+        // $this->getCell(4, 5)->shouldEqual(true);
+        // $this->getCell(5, 5)->shouldEqual(true);
 
-        $this->getCell(3, 3)->shouldEqual(true);
-        $this->getCell(4, 4)->shouldEqual(true);
+        // $this->getCell(3, 3)->shouldEqual(true);
+        // $this->getCell(4, 4)->shouldEqual(true);
 
         $this->age(1)->shouldReturn(3);
 
@@ -329,5 +329,130 @@ class GameOfLifeSpec extends ObjectBehavior
 
         $this->getCell(3, 3)->shouldEqual(false);
         $this->getCell(4, 4)->shouldEqual(false);
+    }
+
+    function it_should_oscillate_a_pulsar()
+    {
+        $this->width = 17;
+        $this->depth = 17;
+        $this->initGrid();
+
+        $this->setCell(5, 3, true);
+        $this->setCell(6, 3, true);
+        $this->setCell(7, 3, true);
+        $this->setCell(3, 5, true);
+        $this->setCell(3, 6, true);
+        $this->setCell(3, 7, true);
+        $this->setCell(8, 5, true);
+        $this->setCell(8, 6, true);
+        $this->setCell(8, 7, true);
+        $this->setCell(5, 8, true);
+        $this->setCell(6, 8, true);
+        $this->setCell(7, 8, true);
+
+        $this->setCell(11, 3, true);
+        $this->setCell(12, 3, true);
+        $this->setCell(13, 3, true);
+        $this->setCell(10, 5, true);
+        $this->setCell(10, 6, true);
+        $this->setCell(10, 7, true);
+        $this->setCell(15, 5, true);
+        $this->setCell(15, 6, true);
+        $this->setCell(15, 7, true);
+        $this->setCell(11, 8, true);
+        $this->setCell(12, 8, true);
+        $this->setCell(13, 8, true);
+
+        $this->setCell(5, 10, true);
+        $this->setCell(6, 10, true);
+        $this->setCell(7, 10, true);
+        $this->setCell(3, 11, true);
+        $this->setCell(3, 12, true);
+        $this->setCell(3, 13, true);
+        $this->setCell(8, 11, true);
+        $this->setCell(8, 12, true);
+        $this->setCell(8, 13, true);
+        $this->setCell(5, 15, true);
+        $this->setCell(6, 15, true);
+        $this->setCell(7, 15, true);
+
+        $this->setCell(11, 10, true);
+        $this->setCell(12, 10, true);
+        $this->setCell(13, 10, true);
+        $this->setCell(10, 11, true);
+        $this->setCell(10, 12, true);
+        $this->setCell(10, 13, true);
+        $this->setCell(15, 11, true);
+        $this->setCell(15, 12, true);
+        $this->setCell(15, 13, true);
+        $this->setCell(11, 15, true);
+        $this->setCell(12, 15, true);
+        $this->setCell(13, 15, true);
+
+        // echo $this->render()->getWrappedObject();
+
+        $this->age(1)->shouldReturn(2);
+
+        // echo $this->render()->getWrappedObject();
+
+        $this->age(1)->shouldReturn(3);
+
+        // echo $this->render()->getWrappedObject();
+
+        $this->age(1)->shouldReturn(4);
+
+        // echo $this->render()->getWrappedObject();
+
+        $this->getCell(5, 3)->shouldEqual(true);
+        $this->getCell(6, 3)->shouldEqual(true);
+        $this->getCell(7, 3)->shouldEqual(true);
+        $this->getCell(3, 5)->shouldEqual(true);
+        $this->getCell(3, 6)->shouldEqual(true);
+        $this->getCell(3, 7)->shouldEqual(true);
+        $this->getCell(8, 5)->shouldEqual(true);
+        $this->getCell(8, 6)->shouldEqual(true);
+        $this->getCell(8, 7)->shouldEqual(true);
+        $this->getCell(5, 8)->shouldEqual(true);
+        $this->getCell(6, 8)->shouldEqual(true);
+        $this->getCell(7, 8)->shouldEqual(true);
+
+        $this->getCell(11, 3)->shouldEqual(true);
+        $this->getCell(12, 3)->shouldEqual(true);
+        $this->getCell(13, 3)->shouldEqual(true);
+        $this->getCell(10, 5)->shouldEqual(true);
+        $this->getCell(10, 6)->shouldEqual(true);
+        $this->getCell(10, 7)->shouldEqual(true);
+        $this->getCell(15, 5)->shouldEqual(true);
+        $this->getCell(15, 6)->shouldEqual(true);
+        $this->getCell(15, 7)->shouldEqual(true);
+        $this->getCell(11, 8)->shouldEqual(true);
+        $this->getCell(12, 8)->shouldEqual(true);
+        $this->getCell(13, 8)->shouldEqual(true);
+
+        $this->getCell(5, 10)->shouldEqual(true);
+        $this->getCell(6, 10)->shouldEqual(true);
+        $this->getCell(7, 10)->shouldEqual(true);
+        $this->getCell(3, 11)->shouldEqual(true);
+        $this->getCell(3, 12)->shouldEqual(true);
+        $this->getCell(3, 13)->shouldEqual(true);
+        $this->getCell(8, 11)->shouldEqual(true);
+        $this->getCell(8, 12)->shouldEqual(true);
+        $this->getCell(8, 13)->shouldEqual(true);
+        $this->getCell(5, 15)->shouldEqual(true);
+        $this->getCell(6, 15)->shouldEqual(true);
+        $this->getCell(7, 15)->shouldEqual(true);
+
+        $this->getCell(11, 10)->shouldEqual(true);
+        $this->getCell(12, 10)->shouldEqual(true);
+        $this->getCell(13, 10)->shouldEqual(true);
+        $this->getCell(10, 11)->shouldEqual(true);
+        $this->getCell(10, 12)->shouldEqual(true);
+        $this->getCell(10, 13)->shouldEqual(true);
+        $this->getCell(15, 11)->shouldEqual(true);
+        $this->getCell(15, 12)->shouldEqual(true);
+        $this->getCell(15, 13)->shouldEqual(true);
+        $this->getCell(11, 15)->shouldEqual(true);
+        $this->getCell(12, 15)->shouldEqual(true);
+        $this->getCell(13, 15)->shouldEqual(true);
     }
 }
