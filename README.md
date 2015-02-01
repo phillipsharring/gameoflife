@@ -1,6 +1,8 @@
 # GameOfLife
 
-An implementation of Conway's Game of Life. With help from Laracast's [Code Katas](http://laracasts.com/series/code-katas-in-php) and [Gulp File](https://laracasts.com/lessons/how-to-trigger-tests-on-save).
+An implementation of Conway's Game of Life in OOP PHP.
+
+With help from Laracast's [Code Katas](http://laracasts.com/series/code-katas-in-php) and [Gulp File](https://laracasts.com/lessons/how-to-trigger-tests-on-save).
 
 ## Requirements
 
