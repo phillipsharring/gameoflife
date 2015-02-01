@@ -78,7 +78,7 @@ class GameOfLife
      * @param int $x
      * @param int $y
      *
-     * @return mixed
+     * @return bool
      */
     function getCell($x, $y)
     {
