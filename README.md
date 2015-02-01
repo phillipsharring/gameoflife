@@ -35,4 +35,6 @@ I like to run it silently so I only see the test output.
 $ gulp --silent
 ```
 
-Feedback invited. Send any to philsown at gmail. Thanks.
+## Feedback
+
+I did this as an exercise in OOP, phpspec, and programming in general. Feedback is invited. Send any to philsown at gmail. Thanks.
