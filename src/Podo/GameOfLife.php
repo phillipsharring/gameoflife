@@ -28,7 +28,7 @@ class GameOfLife
     /**
      * @var array
      */
-    public $nextGeneration = [];
+    public $nextGrid = [];
 
     /**
      * @var int
@@ -113,7 +113,7 @@ class GameOfLife
     function dispatchCell($x, $y, $live)
     {
         $this->guardCoordinates($x, $y);
-        $this->nextGeneration[$y][$x] = $live;
+        $this->nextGrid[$y][$x] = $live;
     }
 
     /**
@@ -177,7 +177,7 @@ class GameOfLife
     {
         for ($i = 0; $i < $generations; $i++) {
             $this->evaluateGrid();
-            $this->grid = $this->nextGeneration;
+            $this->grid = $this->nextGrid;
             $this->generation += 1;
         }
 

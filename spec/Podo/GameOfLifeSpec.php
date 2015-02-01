@@ -37,14 +37,14 @@ class GameOfLifeSpec extends ObjectBehavior
     {
         $live = true;
         $this->dispatchCell(1, 1, $live);
-        $this->nextGeneration[1][1]->shouldReturn($live);
+        $this->nextGrid[1][1]->shouldReturn($live);
     }
 
     function it_should_kill_a_cell()
     {
         $live = false;
         $this->dispatchCell(1, 1, $live);
-        $this->nextGeneration[1][1]->shouldReturn($live);
+        $this->nextGrid[1][1]->shouldReturn($live);
     }
 
     function it_should_get_the_neighborhood_for_a_cell()
