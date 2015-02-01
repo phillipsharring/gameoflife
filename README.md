@@ -4,9 +4,9 @@ An implementation of Conway's Game of Life. With help from Laracast's [Code Kata
 
 ## Requirements
 
-1 PHP 5.4+
-2 [Node & NPM](http://nodejs.org)
-3 [Composer](https://getcomposer.org)
+1. PHP 5.4+
+2. [Node & NPM](http://nodejs.org)
+3. [Composer](https://getcomposer.org)
 
 ## Installation
 
