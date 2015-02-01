@@ -1,4 +1,6 @@
-<?php namespace spec\Podo;
+<?php
+
+namespace spec\Podo;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

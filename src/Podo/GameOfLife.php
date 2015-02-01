@@ -1,19 +1,56 @@
-<?php namespace Podo;
+<?php
+
+namespace Podo;
 
 use \InvalidArgumentException;
 
-class GameOfLife {
-
+/**
+ * Class GameOfLife
+ * @package Podo
+ */
+class GameOfLife
+{
+    /**
+     * @var int
+     */
     public $width;
+
+    /**
+     * @var int
+     */
     public $depth;
 
+    /**
+     * @var array
+     */
     public $grid = [];
+
+    /**
+     * @var array
+     */
     public $nextGeneration = [];
 
+    /**
+     * @var int
+     */
     public $generation = 1;
-    public $output_alive = '█';
-    public $output_dead = '░';
 
+    /**
+     * @var string
+     */
+    public $outputAlive = '█';
+
+    /**
+     * @var string
+     */
+    public $outputDead = '░';
+
+    /**
+     * Construct
+     *
+     * @param int $width
+     * @param int $depth
+     */
     public function __construct($width, $depth)
     {
         $this->width = $width;
@@ -21,6 +58,11 @@ class GameOfLife {
         $this->initGrid();
     }
 
+    /**
+     * Initialize grid
+     *
+     * @return void
+     */
     public function initGrid()
     {
         for ($y = 1; $y <= $this->depth; $y++) {
@@ -30,51 +72,113 @@ class GameOfLife {
         }
     }
 
+    /**
+     * Get grid
+     *
+     * @return array
+     */
     function grid()
     {
         return $this->grid;
     }
 
+    /**
+     * Get current generation
+     *
+     * @return int
+     */
     function generation()
     {
         return $this->generation;
     }
 
+    /**
+     * Get a Cell
+     *
+     * @param int $x
+     * @param int $y
+     *
+     * @return mixed
+     */
     function getCell($x, $y)
     {
         $this->guardCoordinates($x, $y);
         return $this->grid[$y][$x];
     }
 
-    function setCell($x, $y, $result)
+    /**
+     * Set the value of a Cell
+     *
+     * @param int $x
+     * @param int $y
+     * @param bool $alive
+     *
+     * @return void
+     */
+    function setCell($x, $y, $alive)
     {
         $this->guardCoordinates($x, $y);
-        $this->grid[$y][$x] = $result;
+        $this->grid[$y][$x] = $alive;
     }
 
+    /**
+     * Create a cell in the next generation
+     *
+     * @param int $x
+     * @param int $y
+     *
+     * @return void
+     */
     function createCell($x, $y)
     {
         $this->guardCoordinates($x, $y);
         $this->nextGeneration[$y][$x] = true;
     }
 
+    /**
+     * Kill a cell in the next generation
+     *
+     * @param int $x
+     * @param int $y
+     *
+     * @return void
+     */
     function killCell($x, $y)
     {
         $this->guardCoordinates($x, $y);
         $this->nextGeneration[$y][$x] = false;
     }
 
+    /**
+     * Get the neighborhood for a cell
+     *
+     * This simply returns an array with keys 'alive' and 'dead'
+     * which are counts of the status of the cells surrounding a given cell.
+     *
+     * It doesn't matter where they are, just how many there are.
+     *
+     * This assumes that cells off the edge of the grid are dead; not sure if that's right.
+     *
+     * @param $x
+     * @param $y
+     *
+     * @return array
+     */
     function getNeighborHood($x, $y)
     {
         $neighborhood = ['alive' => 0, 'dead' => 0];
 
+        // back and forward along width
         $x0 = $x-1;
         $y0 = $y-1;
+
+        // back and forward along depth
         $x2 = $x0+2;
         $y2 = $y0+2;
 
         $grid = $this->grid();
 
+        // don't go off the edge of the grid
         for ($i = max($y0, 1); $i <= min($y2, $this->depth); $i++) {
             for ($j = max($x0, 1); $j <= min($x2, $this->width); $j++) {
                 if ($i == $y && $j == $x) {
@@ -86,12 +190,21 @@ class GameOfLife {
         }
 
         $count = $neighborhood['alive'] + $neighborhood['dead'];
+
+        // fill in cells off the grid
         $fill = 8 - $count;
         $neighborhood['dead'] += $fill;
 
         return $neighborhood;
     }
 
+    /**
+     * Age the grid
+     *
+     * @param int $generations how many generations to age
+     *
+     * @return int the current generation
+     */
     function age($generations)
     {
         for ($i = 0; $i < $generations; $i++) {
@@ -113,9 +226,20 @@ class GameOfLife {
         return $this->generation();
     }
 
+    /**
+     * Evaluate
+     *
+     * Evaluate a cell and decide if it lives or dies in the next generation
+     *
+     * @param int $x
+     * @param int $y
+     *
+     * @return bool|null
+     */
     function evaluate($x, $y)
     {
         $result = null;
+
         $neighborhood = $this->getNeighborHood($x, $y);
         $cell = $this->getCell($x, $y);
 
@@ -144,6 +268,13 @@ class GameOfLife {
         return $result;
     }
 
+    /**
+     * Render
+     *
+     * Draw the grid in its current generation
+     *
+     * @return string
+     */
     public function render()
     {
         $grid = $this->grid();
@@ -153,7 +284,7 @@ class GameOfLife {
             $line = '';
             for ($x = 1; $x <= count($grid[$y]); $x++) {
                 $cell = $grid[$y][$x];
-                $line .= ($cell ? $this->output_alive : $this->output_dead);
+                $line .= ($cell ? $this->outputAlive : $this->outputDead);
             }
             $output .= $line . PHP_EOL;
         }
@@ -161,31 +292,84 @@ class GameOfLife {
         return $output;
     }
 
-    private function cellIsLonely($neighborhood)
+    /**
+     * Cell is Lonely
+     *
+     * "Any live cell with fewer than two live neighbours dies, as if caused by under-population."
+     *
+     * @param array $neighborhood
+     *
+     * @return bool
+     */
+    private function cellIsLonely(array $neighborhood)
     {
         return ($neighborhood['alive'] < 2);
     }
 
-    private function cellHasEnoughNeighbors($neighborhood)
+    /**
+     * Cell has enough neighbors
+     *
+     * "Any live cell with two or three live neighbours lives on to the next generation."
+     *
+     * @param array $neighborhood
+     *
+     * @return bool
+     */
+    private function cellHasEnoughNeighbors(array $neighborhood)
     {
         return ($neighborhood['alive'] == 2 || $neighborhood['alive'] == 3);
     }
 
-    private function cellIsOverCrowded($neighborhood)
+    /**
+     * Cell is Over Crowded
+     *
+     * "Any live cell with more than three live neighbours dies, as if by overcrowding."
+     *
+     * @param array $neighborhood
+     *
+     * @return bool
+     */
+    private function cellIsOverCrowded(array $neighborhood)
     {
         return ($neighborhood['alive'] > 3);
     }
 
-    private function cellHasThreeNeighbors($neighborhood)
+    /**
+     * Cell has Three Neighbors
+     *
+     * "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction."
+     *
+     * @param array $neighborhood
+     * @return bool
+     */
+    private function cellHasThreeNeighbors(array $neighborhood)
     {
         return ($neighborhood['alive'] == 3);
     }
 
+    /**
+     * Guard coordinates
+     *
+     * This throws if coordinates off the grid are accessed.
+     *
+     * @param int $x
+     * @param int $y
+     *
+     * @throws \InvalidArgumentException
+     */
     private function guardCoordinates($x, $y)
     {
         $grid = $this->grid();
         $depth = count($grid);
         $width = count($grid[1]);
+
+        if ($x < 1) {
+            throw new InvalidArgumentException("X: $x is less than 1");
+        }
+
+        if ($y < 1) {
+            throw new InvalidArgumentException("Y: $x is less than 1");
+        }
 
         if ($x > $width) {
             throw new InvalidArgumentException("X: $x is beyond width: $width");
