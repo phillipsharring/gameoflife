@@ -159,8 +159,8 @@ class GameOfLife
      *
      * This assumes that cells off the edge of the grid are dead; not sure if that's right.
      *
-     * @param $x
-     * @param $y
+     * @param int $x
+     * @param int $y
      *
      * @return array
      */
@@ -181,6 +181,7 @@ class GameOfLife
         // don't go off the edge of the grid
         for ($i = max($y0, 1); $i <= min($y2, $this->depth); $i++) {
             for ($j = max($x0, 1); $j <= min($x2, $this->width); $j++) {
+                // ignore the current cell
                 if ($i == $y && $j == $x) {
                     continue;
                 }
@@ -191,7 +192,7 @@ class GameOfLife
 
         $count = $neighborhood['alive'] + $neighborhood['dead'];
 
-        // fill in cells off the grid
+        // fill in cells off the grid as dead
         $fill = 8 - $count;
         $neighborhood['dead'] += $fill;
 
@@ -211,7 +212,10 @@ class GameOfLife
 
             for ($y = 1; $y <= $this->depth; $y++) {
                 for ($x = 1; $x <= $this->width; $x++) {
-                    if ($this->evaluate($x, $y)) {
+                    // we should throw if this is null, maybe
+                    $alive = $this->evaluate($x, $y);
+
+                    if ($alive) {
                         $this->createCell($x, $y);
                     } else {
                         $this->killCell($x, $y);
@@ -241,21 +245,21 @@ class GameOfLife
         $result = null;
 
         $neighborhood = $this->getNeighborHood($x, $y);
-        $cell = $this->getCell($x, $y);
+        $alive = $this->getCell($x, $y);
 
-        if ($cell && $this->cellIsLonely($neighborhood)) {
+        if ($this->cellIsLonely($alive, $neighborhood)) {
             $result = false;
         }
 
-        elseif($cell && $this->cellHasEnoughNeighbors($neighborhood)) {
+        elseif($this->cellHasEnoughNeighbors($alive, $neighborhood)) {
             $result = true;
         }
 
-        elseif ($cell && $this->cellIsOverCrowded($neighborhood)) {
+        elseif ($this->cellIsOverCrowded($alive, $neighborhood)) {
             $result = false;
         }
 
-        elseif (!$cell && $this->cellHasThreeNeighbors($neighborhood)) {
+        elseif ($this->cellHasThreeNeighbors($alive, $neighborhood)) {
             $result = true;
         }
 
@@ -297,13 +301,14 @@ class GameOfLife
      *
      * "Any live cell with fewer than two live neighbours dies, as if caused by under-population."
      *
+     * @param bool $alive
      * @param array $neighborhood
      *
      * @return bool
      */
-    private function cellIsLonely(array $neighborhood)
+    private function cellIsLonely($alive, array $neighborhood)
     {
-        return ($neighborhood['alive'] < 2);
+        return ($alive && $neighborhood['alive'] < 2);
     }
 
     /**
@@ -311,13 +316,16 @@ class GameOfLife
      *
      * "Any live cell with two or three live neighbours lives on to the next generation."
      *
+     * Is this function even necessary, since it doesn't really change the cell?
+     *
+     * @param bool $alive
      * @param array $neighborhood
      *
      * @return bool
      */
-    private function cellHasEnoughNeighbors(array $neighborhood)
+    private function cellHasEnoughNeighbors($alive, array $neighborhood)
     {
-        return ($neighborhood['alive'] == 2 || $neighborhood['alive'] == 3);
+        return ($alive && $neighborhood['alive'] == 2 || $neighborhood['alive'] == 3);
     }
 
     /**
@@ -325,13 +333,14 @@ class GameOfLife
      *
      * "Any live cell with more than three live neighbours dies, as if by overcrowding."
      *
+     * @param bool $alive
      * @param array $neighborhood
      *
      * @return bool
      */
-    private function cellIsOverCrowded(array $neighborhood)
+    private function cellIsOverCrowded($alive, array $neighborhood)
     {
-        return ($neighborhood['alive'] > 3);
+        return ($alive && $neighborhood['alive'] > 3);
     }
 
     /**
@@ -339,12 +348,14 @@ class GameOfLife
      *
      * "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction."
      *
+     * @param bool $alive
      * @param array $neighborhood
+     *
      * @return bool
      */
-    private function cellHasThreeNeighbors(array $neighborhood)
+    private function cellHasThreeNeighbors($alive, array $neighborhood)
     {
-        return ($neighborhood['alive'] == 3);
+        return (!$alive && $neighborhood['alive'] == 3);
     }
 
     /**
