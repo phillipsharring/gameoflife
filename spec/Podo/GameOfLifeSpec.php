@@ -66,6 +66,11 @@ class GameOfLifeSpec extends ObjectBehavior
         }
     }
 
+    function it_should_evaluate_the_whole_grid()
+    {
+        $this->evaluateGrid();
+    }
+
     function it_should_render()
     {
         $this->setCell(1, 1, true);
