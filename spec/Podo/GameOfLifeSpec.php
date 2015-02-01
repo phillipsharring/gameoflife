@@ -49,7 +49,7 @@ class GameOfLifeSpec extends ObjectBehavior
 
     function it_should_get_the_neighborhood_for_a_cell()
     {
-        $x = $y = 23;
+        $x = $y = 2;
 
         $result = $this->getNeighborHood($x, $y);
         $neighborhood = $result->getWrappedObject();

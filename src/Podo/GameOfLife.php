@@ -133,6 +133,8 @@ class GameOfLife
      */
     function getNeighborHood($x, $y)
     {
+        $this->guardCoordinates($x, $y);
+
         $neighborhood = ['alive' => 0, 'dead' => 0];
 
         // back and forward along width
