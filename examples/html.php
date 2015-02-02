@@ -1,6 +1,6 @@
 <?php
 
-include('vendor/autoload.php');
+include(__DIR__ . '/../vendor/autoload.php');
 
 use Podo\GameOfLife\GameOfLife;
 use Podo\GameOfLife\Decorators\HtmlDecorator;
