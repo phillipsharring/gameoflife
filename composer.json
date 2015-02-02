@@ -1,5 +1,18 @@
 {
-  "require": {
+  "name": "philsown/gameoflife",
+  "description": "An implementation of Conway's Game of Life in OOP PHP",
+  "keywords": ["conway", "game of life", "game", "life", "zero player game"],
+  "homepage": "https://github.com/philsown/GameOfLife",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Phillip Harrington",
+      "email": "philsown@gmail.com",
+      "homepage": "http://www.phillipharrington.com/",
+      "role": "developer"
+    }
+  ],
+  "require-dev": {
     "phpspec/phpspec": "~2.0"
   },
   "autoload": {
