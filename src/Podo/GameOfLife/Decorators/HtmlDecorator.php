@@ -2,8 +2,6 @@
 
 namespace Podo\GameOfLife\Decorators;
 
-use \InvalidArgumentException;
-
 class HtmlDecorator extends DecoratorAbstract
 {
     public $outputAlive = 'X';

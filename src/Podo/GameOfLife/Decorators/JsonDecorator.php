@@ -2,8 +2,6 @@
 
 namespace Podo\GameOfLife\Decorators;
 
-use \InvalidArgumentException;
-
 class JsonDecorator extends DecoratorAbstract
 {
     public function render()
