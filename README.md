@@ -13,7 +13,7 @@ With help from Laracast's [Code Katas](http://laracasts.com/series/code-katas-in
 ## Installation
 
 ```bash
-$ git clone https://github.com/philsown/GameOfLife.git
+$ git clone https://github.com/philsown/gameoflife.git
 $ cd GameOfLife
 $ npm install
 $ composer install
