@@ -3,6 +3,7 @@
 namespace Podo\GameOfLife;
 
 use \InvalidArgumentException;
+use Podo\GameOfLife\Decorators\DecoratorAbstract;
 
 /**
  * Class GameOfLife
@@ -44,6 +45,11 @@ class GameOfLife
      * @var string
      */
     public $outputDead = '░';
+
+    /**
+     * @var DecoratorAbstract
+     */
+    public $decorator;
 
     /**
      * Construct
@@ -194,7 +200,7 @@ class GameOfLife
      *
      * @return void
      */
-    public function evaluateGrid()
+    function evaluateGrid()
     {
         for ($y = 1; $y <= $this->depth; $y++) {
             for ($x = 1; $x <= $this->width; $x++) {
@@ -252,6 +258,10 @@ class GameOfLife
      */
     function render()
     {
+        if (null !== $this->decorator) {
+            return $this->decorator->render();
+        }
+
         $grid = $this->grid;
         $output = PHP_EOL;
 
@@ -265,6 +275,12 @@ class GameOfLife
         }
 
         return $output;
+    }
+
+    public function decorator(DecoratorAbstract $decorator)
+    {
+        $decorator->setGame($this);
+        $this->decorator = $decorator;
     }
 
     /**
