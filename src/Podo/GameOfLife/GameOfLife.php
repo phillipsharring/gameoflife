@@ -277,6 +277,13 @@ class GameOfLife
         return $output;
     }
 
+    /**
+     * Assign a decorator
+     *
+     * @param DecoratorAbstract $decorator
+     *
+     * @return void
+     */
     public function decorator(DecoratorAbstract $decorator)
     {
         $decorator->setGame($this);
