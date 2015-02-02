@@ -18,10 +18,10 @@ class HtmlDecorator extends DecoratorAbstract
         for ($y = 1; $y <= count($grid); $y++) {
             $line = '<tr>';
             for ($x = 1; $x <= count($grid[$y]); $x++) {
-                $cell = $grid[$y][$x];
+                $alive = $grid[$y][$x];
                 $line .= sprintf(
                     $format,
-                    ($cell ? $this->outputAlive : $this->outputDead)
+                    ($alive ? $this->outputAlive : $this->outputDead)
                 );
             }
             $output .= $line . '</tr>';

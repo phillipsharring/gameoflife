@@ -268,8 +268,8 @@ class GameOfLife
         for ($y = 1; $y <= count($grid); $y++) {
             $line = '';
             for ($x = 1; $x <= count($grid[$y]); $x++) {
-                $cell = $grid[$y][$x];
-                $line .= ($cell ? $this->outputAlive : $this->outputDead);
+                $alive = $grid[$y][$x];
+                $line .= ($alive ? $this->outputAlive : $this->outputDead);
             }
             $output .= $line . PHP_EOL;
         }
