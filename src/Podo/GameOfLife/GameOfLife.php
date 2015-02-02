@@ -1,6 +1,6 @@
 <?php
 
-namespace Podo;
+namespace Podo\GameOfLife;
 
 use \InvalidArgumentException;
 

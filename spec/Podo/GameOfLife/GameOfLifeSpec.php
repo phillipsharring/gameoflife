@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Podo;
+namespace spec\Podo\GameOfLife;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
