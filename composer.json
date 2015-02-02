@@ -2,7 +2,7 @@
   "name": "philsown/gameoflife",
   "description": "An implementation of Conway's Game of Life in OOP PHP",
   "keywords": ["conway", "game of life", "game", "life", "zero player game"],
-  "homepage": "https://github.com/philsown/GameOfLife",
+  "homepage": "https://github.com/philsown/gameoflife",
   "license": "MIT",
   "authors": [
     {

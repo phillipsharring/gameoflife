@@ -5,10 +5,10 @@
   "author": "Phillip Harrington <philsown@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/philsown/GameOfLife.git"
+    "url": "https://github.com/philsown/gameoflife.git"
   },
   "bugs": {
-    "url": "https://github.com/philsown/GameOfLife/issues"
+    "url": "https://github.com/philsown/gameoflife/issues"
   },
   "keywords": ["conway", "game of life", "game", "life", "zero player game"],
   "devDependencies": {
