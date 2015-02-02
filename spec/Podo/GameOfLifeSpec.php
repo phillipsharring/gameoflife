@@ -229,12 +229,6 @@ class GameOfLifeSpec extends ObjectBehavior
 
 //        echo $this->render()->getWrappedObject();
 
-        // $this->getCell(2, 3)->shouldEqual(false);
-        // $this->getCell(3, 3)->shouldEqual(true);
-        // $this->getCell(4, 3)->shouldEqual(false);
-        // $this->getCell(3, 2)->shouldEqual(true);
-        // $this->getCell(3, 4)->shouldEqual(true);
-
         $this->age(1)->shouldReturn(3);
 
 //        echo $this->render()->getWrappedObject();
@@ -260,18 +254,6 @@ class GameOfLifeSpec extends ObjectBehavior
         $this->age(1)->shouldReturn(2);
 
 //        echo $this->render()->getWrappedObject();
-
-        // $this->getCell(3, 3)->shouldEqual(false);
-        // $this->getCell(4, 3)->shouldEqual(false);
-        // $this->getCell(5, 3)->shouldEqual(true);
-        // $this->getCell(2, 4)->shouldEqual(true);
-        // $this->getCell(3, 4)->shouldEqual(false);
-        // $this->getCell(4, 4)->shouldEqual(false);
-
-        // $this->getCell(4, 2)->shouldEqual(true);
-        // $this->getCell(2, 3)->shouldEqual(true);
-        // $this->getCell(5, 4)->shouldEqual(true);
-        // $this->getCell(3, 5)->shouldEqual(true);
 
         $this->age(1)->shouldReturn(3);
 
@@ -305,16 +287,6 @@ class GameOfLifeSpec extends ObjectBehavior
         $this->age(1)->shouldReturn(2);
 
 //        echo $this->render()->getWrappedObject();
-
-        // $this->getCell(2, 2)->shouldEqual(true);
-        // $this->getCell(3, 2)->shouldEqual(true);
-        // $this->getCell(2, 3)->shouldEqual(true);
-        // $this->getCell(5, 4)->shouldEqual(true);
-        // $this->getCell(4, 5)->shouldEqual(true);
-        // $this->getCell(5, 5)->shouldEqual(true);
-
-        // $this->getCell(3, 3)->shouldEqual(true);
-        // $this->getCell(4, 4)->shouldEqual(true);
 
         $this->age(1)->shouldReturn(3);
 
